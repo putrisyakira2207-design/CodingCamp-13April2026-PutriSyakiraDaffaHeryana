@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Expense Tracker</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+
+    <!-- ── Header ─────────────────────────────────────────────────────── -->
+    <header>
+      <h1>Expense Tracker</h1>
+      <span id="total-balance">$0.00</span>
+      <button id="theme-toggle" aria-label="Toggle dark/light mode">Toggle Theme</button>
+    </header>
+
+    <!-- ── Main ───────────────────────────────────────────────────────── -->
+    <main>
+
+      <!-- Transaction input form -->
+      <form id="transaction-form" novalidate>
+        <h2>Add Transaction</h2>
+        <div class="form-errors" aria-live="polite"></div>
+
+        <label for="tx-name">Name</label>
+        <input id="tx-name" name="name" type="text" placeholder="e.g. Coffee" autocomplete="off" />
+
+        <label for="tx-amount">Amount</label>
+        <input id="tx-amount" name="amount" type="number" min="0.01" step="0.01" placeholder="0.00" />
+
+        <label for="tx-category">Category</label>
+        <select id="tx-category" name="category">
+          <option value="">-- Select category --</option>
+        </select>
+
+        <button type="submit">Add</button>
+      </form>
+
+      <!-- Sort control -->
+      <div class="sort-wrapper">
+        <label for="sort-control">Sort by</label>
+        <select id="sort-control">
+          <option value="default">Default (insertion order)</option>
+          <option value="amount-asc">Amount: Low → High</option>
+          <option value="amount-desc">Amount: High → Low</option>
+          <option value="category-asc">Category: A → Z</option>
+          <option value="category-desc">Category: Z → A</option>
+        </select>
+      </div>
+
+      <!-- Transaction list -->
+      <ul id="transaction-list" aria-label="Transaction list"></ul>
+
+    </main>
+
+    <!-- ── Aside ───────────────────────────────────────────────────────── -->
+    <aside>
+
+      <!-- Category manager -->
+      <section id="category-manager">
+        <h2>Categories</h2>
+        <div class="form-errors category-errors" aria-live="polite"></div>
+        <div class="category-add-row">
+          <input id="new-category-input" type="text" placeholder="New category name" />
+          <button id="add-category-btn" type="button">Add</button>
+        </div>
+        <ul id="category-list" aria-label="Category list"></ul>
+      </section>
+
+      <!-- Spending limits -->
+      <section id="spending-limits">
+        <h2>Spending Limits</h2>
+        <div id="spending-limits-list"></div>
+      </section>
+
+    </aside>
+
+    <!-- ── Monthly summary toggle ─────────────────────────────────────── -->
+    <button id="monthly-summary-toggle" type="button">View Monthly Summary</button>
+
+    <!-- ── Monthly summary ────────────────────────────────────────────── -->
+    <section id="monthly-summary" hidden>
+      <h2>Monthly Summary</h2>
+      <div id="monthly-summary-content"></div>
+    </section>
+
+    <!-- ── Chart ──────────────────────────────────────────────────────── -->
+    <section id="chart-section">
+      <h2>Spending by Category</h2>
+      <canvas id="spending-chart" width="300" height="300" aria-label="Spending distribution pie chart" role="img"></canvas>
+    </section>
+
+    <!-- ── Scripts (order matters — no modules) ───────────────────────── -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4/dist/chart.umd.min.js"></script>
+    <script src="storage.js"></script>
+    <script src="validator.js"></script>
+    <script src="sort.js"></script>
+    <script src="theme.js"></script>
+    <script src="app.js"></script>
+
+  </body>
+</html>

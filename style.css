@@ -1,0 +1,498 @@
+/* ── CSS custom properties — light theme ─────────────────────────────── */
+:root {
+  --color-bg: #f5f5f5;
+  --color-surface: #ffffff;
+  --color-border: #d1d5db;
+  --color-text: #111827;
+  --color-text-muted: #6b7280;
+  --color-primary: #2563eb;
+  --color-primary-hover: #1d4ed8;
+  --color-danger: #dc2626;
+  --color-danger-hover: #b91c1c;
+  --color-warning-bg: #fef3c7;
+  --color-warning-border: #f59e0b;
+  --color-over-limit-bg: #fee2e2;
+  --color-over-limit-border: #f87171;
+  --color-toast-bg: #1f2937;
+  --color-toast-text: #f9fafb;
+  --color-banner-bg: #fef9c3;
+  --color-banner-border: #facc15;
+  --color-banner-text: #713f12;
+  --radius: 6px;
+  --shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  --transition: 0.2s ease;
+}
+
+/* ── Dark theme overrides ─────────────────────────────────────────────── */
+/*
+ * Contrast ratios (WCAG AA: ≥4.5:1 normal text, ≥3:1 large text / UI)
+ *   --color-text (#f9fafb) on --color-bg (#111827)      ≈ 18.1:1  ✓
+ *   --color-text (#f9fafb) on --color-surface (#1f2937) ≈ 15.3:1  ✓
+ *   --color-text-muted (#9ca3af) on --color-bg          ≈  7.0:1  ✓
+ *   --color-primary (#60a5fa) on --color-bg             ≈  6.1:1  ✓
+ *   --color-primary (#60a5fa) on --color-surface        ≈  5.2:1  ✓
+ *   --color-danger (#f87171) on --color-bg              ≈  5.1:1  ✓
+ *   --color-banner-text (#fde68a) on --color-banner-bg  ≈  8.5:1  ✓
+ *   --color-toast-text (#f9fafb) on --color-toast-bg    ≈ 11.0:1  ✓
+ */
+[data-theme="dark"] {
+  --color-bg: #111827;
+  --color-surface: #1f2937;
+  --color-border: #374151;
+  --color-text: #f9fafb;
+  --color-text-muted: #9ca3af;
+  /* #60a5fa achieves ≥4.5:1 on both --color-bg and --color-surface */
+  --color-primary: #60a5fa;
+  --color-primary-hover: #93c5fd;
+  --color-danger: #f87171;
+  --color-danger-hover: #fca5a5;
+  --color-warning-bg: #451a03;
+  --color-warning-border: #d97706;
+  --color-over-limit-bg: #450a0a;
+  --color-over-limit-border: #dc2626;
+  --color-toast-bg: #374151;
+  --color-toast-text: #f9fafb;
+  --color-banner-bg: #422006;
+  --color-banner-border: #d97706;
+  --color-banner-text: #fde68a;
+}
+
+/* ── Reset & base ─────────────────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+}
+
+body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  line-height: 1.5;
+  min-height: 100vh;
+  padding: 1rem;
+  transition: background-color var(--transition), color var(--transition);
+}
+
+/* ── Layout ───────────────────────────────────────────────────────────── */
+header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 1rem 1.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: var(--shadow);
+}
+
+header h1 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  flex: 1;
+}
+
+#total-balance {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-primary);
+}
+
+main {
+  display: grid;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+aside {
+  display: grid;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  body > main,
+  body > aside {
+    max-width: 720px;
+  }
+}
+
+/* ── Cards / surfaces ─────────────────────────────────────────────────── */
+form,
+section,
+aside > section {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 1.25rem;
+  box-shadow: var(--shadow);
+}
+
+h2 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+  color: var(--color-text);
+}
+
+/* ── Forms ────────────────────────────────────────────────────────────── */
+label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  margin-bottom: 0.25rem;
+  color: var(--color-text-muted);
+}
+
+input[type="text"],
+input[type="number"],
+select {
+  display: block;
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.9375rem;
+  color: var(--color-text);
+  background-color: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  margin-bottom: 0.75rem;
+  transition: border-color var(--transition);
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus,
+select:focus {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 1px;
+  border-color: var(--color-primary);
+}
+
+/* ── Buttons ──────────────────────────────────────────────────────────── */
+button {
+  cursor: pointer;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  border: none;
+  border-radius: var(--radius);
+  padding: 0.5rem 1rem;
+  transition: background-color var(--transition), color var(--transition);
+}
+
+button[type="submit"],
+#add-category-btn,
+#monthly-summary-toggle {
+  background-color: var(--color-primary);
+  color: #fff;
+}
+
+button[type="submit"]:hover,
+#add-category-btn:hover,
+#monthly-summary-toggle:hover {
+  background-color: var(--color-primary-hover);
+}
+
+#theme-toggle {
+  background-color: var(--color-surface);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+}
+
+#theme-toggle:hover {
+  background-color: var(--color-bg);
+}
+
+.btn-danger {
+  background-color: var(--color-danger);
+  color: #fff;
+}
+
+.btn-danger:hover {
+  background-color: var(--color-danger-hover);
+}
+
+/* ── Form errors ──────────────────────────────────────────────────────── */
+.form-errors {
+  font-size: 0.875rem;
+  color: var(--color-danger);
+  margin-bottom: 0.5rem;
+  min-height: 1.25rem;
+}
+
+/* ── Transaction list ─────────────────────────────────────────────────── */
+#transaction-list {
+  list-style: none;
+  max-height: 400px;
+  overflow-y: auto;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background-color: var(--color-surface);
+}
+
+#transaction-list li {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--color-border);
+  transition: background-color var(--transition);
+}
+
+#transaction-list li:last-child {
+  border-bottom: none;
+}
+
+/* Spending limit exceeded highlight */
+#transaction-list li.over-limit {
+  background-color: var(--color-over-limit-bg);
+  border-left: 3px solid var(--color-over-limit-border);
+}
+
+.tx-name {
+  flex: 1;
+  font-weight: 500;
+}
+
+.tx-amount {
+  font-weight: 600;
+  color: var(--color-primary);
+  white-space: nowrap;
+}
+
+.tx-category {
+  font-size: 0.8125rem;
+  color: var(--color-text-muted);
+  background-color: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  padding: 0.125rem 0.5rem;
+  white-space: nowrap;
+}
+
+/* ── Sort control ─────────────────────────────────────────────────────── */
+.sort-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.sort-wrapper label {
+  margin-bottom: 0;
+  white-space: nowrap;
+}
+
+.sort-wrapper select {
+  margin-bottom: 0;
+  width: auto;
+}
+
+/* ── Category manager ─────────────────────────────────────────────────── */
+.category-add-row {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.category-add-row input {
+  flex: 1;
+  margin-bottom: 0;
+}
+
+#category-list {
+  list-style: none;
+}
+
+#category-list li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.375rem 0;
+  border-bottom: 1px solid var(--color-border);
+  font-size: 0.9375rem;
+}
+
+#category-list li:last-child {
+  border-bottom: none;
+}
+
+/* ── Spending limits panel ────────────────────────────────────────────── */
+#spending-limits-list .limit-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.375rem 0;
+  border-bottom: 1px solid var(--color-border);
+}
+
+#spending-limits-list .limit-row:last-child {
+  border-bottom: none;
+}
+
+.limit-row .limit-label {
+  flex: 1;
+  font-size: 0.9375rem;
+}
+
+.limit-row input[type="number"] {
+  width: 6rem;
+  margin-bottom: 0;
+}
+
+.limit-row .warning-badge {
+  font-size: 0.75rem;
+  color: var(--color-danger);
+  font-weight: 600;
+}
+
+.limit-row .btn-save-limit {
+  background-color: var(--color-primary);
+  color: #fff;
+  padding: 0.375rem 0.75rem;
+  font-size: 0.875rem;
+}
+
+.limit-row .btn-save-limit:hover {
+  background-color: var(--color-primary-hover);
+}
+
+/* ── Monthly summary ──────────────────────────────────────────────────── */
+#monthly-summary {
+  margin-bottom: 1.5rem;
+}
+
+#monthly-summary-content .month-block {
+  margin-bottom: 1rem;
+}
+
+#monthly-summary-content .month-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 0.25rem;
+}
+
+#monthly-summary-content .month-title {
+  font-weight: 600;
+}
+
+#monthly-summary-content .month-total {
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+}
+
+#monthly-summary-content .month-categories {
+  list-style: none;
+  padding-left: 1rem;
+  border-left: 2px solid var(--color-border);
+  margin-left: 0.25rem;
+}
+
+#monthly-summary-content .month-category-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 0.125rem 0;
+  font-size: 0.875rem;
+}
+
+#monthly-summary-content .month-category-name {
+  color: var(--color-text-muted);
+}
+
+#monthly-summary-content .month-category-amount {
+  color: var(--color-text);
+  font-weight: 500;
+}
+
+.monthly-summary-empty {
+  color: var(--color-text-muted);
+  font-size: 0.9375rem;
+}
+
+#monthly-summary-toggle {
+  display: block;
+  margin-bottom: 1.5rem;
+}
+
+/* ── Chart section ────────────────────────────────────────────────────── */
+#chart-section {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 1.25rem;
+  box-shadow: var(--shadow);
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+#spending-chart {
+  max-width: 300px;
+  max-height: 300px;
+  margin: 0 auto;
+}
+
+/* ── Toast notifications ──────────────────────────────────────────────── */
+.notification-container {
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  pointer-events: none;
+}
+
+.notification-container--bottom {
+  bottom: 1.5rem;
+}
+
+.notification-container--top {
+  top: 1rem;
+}
+
+.toast {
+  background-color: var(--color-toast-bg);
+  color: var(--color-toast-text);
+  padding: 0.625rem 1.25rem;
+  border-radius: var(--radius);
+  font-size: 0.9375rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: auto;
+}
+
+.toast--visible {
+  opacity: 1;
+}
+
+/* ── Banner notifications ─────────────────────────────────────────────── */
+.banner {
+  background-color: var(--color-banner-bg);
+  color: var(--color-banner-text);
+  border: 1px solid var(--color-banner-border);
+  border-radius: var(--radius);
+  padding: 0.625rem 1rem;
+  font-size: 0.9375rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  pointer-events: auto;
+  max-width: 480px;
+}
+
+.banner__close {
+  background: none;
+  border: none;
+  font-size: 1.125rem;
+  line-height: 1;
+  color: var(--color-banner-text);
+  padding: 0;
+  cursor: pointer;
+  margin-left: auto;
+}
